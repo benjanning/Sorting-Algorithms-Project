@@ -24,6 +24,16 @@ An academic investigation of how different sorting strategies work and how their
 | Radix sort | [radix_sort.py](./radix_sort.py) |
 | Full written investigation | [Notebook](./Sorting%20Algorithms%20Project%20-%20Computational%20Thinking%20with%20Algorithms.ipynb) |
 
+## Verified regression tests
+
+A new [`test_algorithms.py`](./test_algorithms.py) exercises all five algorithms using empty, reversed, repeated and random inputs. The local regression suite passed after fixing two implementation issues.
+
+```bash
+python -m unittest -v test_algorithms.py
+```
+
+**Reproducibility note:** The benchmark chart and timing CSVs are historical coursework outputs and have not been regenerated following these corrections. Treat them as illustrative until the full benchmarks are rerun under a documented environment.
+
 ## Reviewing the work
 
 Open the notebook on GitHub to read the explanations and stored figures without installing anything. To re-run code, use a Python/Jupyter environment and install the libraries imported by the notebook.
