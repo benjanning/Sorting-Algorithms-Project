@@ -27,4 +27,4 @@ def bubble_sort(arr):
         if not swapped:
             break
 
-    return sorted (arr)
+    return arr
