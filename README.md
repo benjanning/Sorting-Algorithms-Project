@@ -42,4 +42,10 @@ Open the notebook on GitHub to read the explanations and stored figures without 
 
 ---
 
-Part of my Higher Diploma in Computing (Data Analytics). [View the full portfolio](https://github.com/benjanning/programming2022).
+Part of my Higher Diploma in Computing (Data Analytics). [View the full portfolio](https://benjanning.github.io/projects/).
+
+## Verified benchmark (October 2026)
+
+Run `python -m unittest test_algorithms.py` (four regression test methods), then `python benchmark_verified.py`. The new verified_timings.csv records medians of five repetitions at input sizes 50, 100, 250, 500 and 1,000. All algorithms receive identical seeded non-negative integer samples. Each measured result is checked against sorted(). Copies are made outside the timed region.
+
+These measurements are distinct from the historical average_times.csv, elapsed_times.csv and benchmark_plot.png. Historical aggregation needs further review; no universal speed ratios should be inferred from it. Timings depend on interpreter, hardware and load. Radix sort accepts non-negative integers; quicksort has recursion limits on adverse inputs.
