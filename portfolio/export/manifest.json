@@ -1,0 +1,74 @@
+{
+  "schema_version": 1,
+  "source_repository": "benjanning/Sorting-Algorithms-Project",
+  "source_revision": "5a3841b1714bdf4f94321e2737a23d632b5479cd",
+  "verification_run": 39429978976,
+  "project": {
+    "slug": "sorting-algorithms",
+    "title": "Sorting algorithms, measured",
+    "category": "Algorithms",
+    "repo": "Sorting-Algorithms-Project",
+    "stack": [
+      "Python",
+      "Algorithms",
+      "Benchmarking",
+      "Matplotlib"
+    ],
+    "image": "benchmark.png",
+    "alt": "Measured runtimes and observed interquartile ranges of five Python sorting implementations",
+    "desc": "Measure five sorting implementations, then step through the work behind three of them in a simple interactive explorer.",
+    "built": "Preserved five original Python algorithms and their confirmed tests, added traceable raw benchmark measurements and built a small browser explorer that shows real algorithm operations.",
+    "why": "Two methods can produce the same answer while taking very different amounts of work. Correctness and measurement help make that trade-off visible.",
+    "how": [
+      "Check every measured output against a trusted sorted result and compare five implementations on identical seeded inputs.",
+      "Record raw timings, medians and IQR with implementation hashes and environment details; reuse verified observations when the code is unchanged.",
+      "Step through instrumented bubble, selection and rightmost-pivot quicksort ports on the same starting values."
+    ],
+    "demonstrates": "Algorithmic thinking, regression testing, reproducible experimentation and interpreting performance evidence.",
+    "caption": "Five identical seeded random samples per input size. Lines show median measured milliseconds; bands show observed IQR, not confidence intervals. The recorded environment and exact implementation hashes accompany the data.",
+    "result": "Five Python implementations passed correctness checks on 125 measured sorts: five identical seeded random samples at each size from 50 to 1,000. Median and IQR are calculated from saved raw measurements. Measurements were recorded on Windows-11-10.0.26300-SP0 with Python 3.12.2; unchanged algorithm hashes reuse those observations. The browser explorer illustrates operations separately and its animation speed is not a performance measurement.",
+    "limits": "Measurements cover random non-negative integer inputs from 50 to 1,000 in one recorded environment; they do not establish a universal ranking. IQR describes observed variation, not confidence. Rightmost-pivot recursive quicksort has adverse-input recursion limits. Radix supports non-negative integers and rejects booleans/fractions. The browser explorer ports only three approaches and limits inputs to 24 values; animation pace is unrelated to Python runtime.",
+    "technical": "Seven Python test methods preserve original correctness checks and validate raw timing aggregation, cache provenance and radix input domains. Three Node tests compare final traces with actual Python outputs, check permutation preservation at every step and reconcile known operation counts. The browser workflow exercises completion, controls, reset and mobile layout before publishing screenshots. Selection self placements are shown but do not count as index-changing swaps. Benchmark copies and correctness checks are excluded from measured timing.",
+    "run": "Install requirements.txt; run python benchmark_portfolio.py, python plot_portfolio.py and python -m unittest discover -p \"test_*.py\" -v. Use --refresh to request new measurements. For browser verification, build Python fixtures and docs, npm ci, npm run test:trace and npm run test:browser.",
+    "extra": "",
+    "gallery": [
+      [
+        "comparison.png",
+        "The same measurements at 1,000 values, shown on a linear scale."
+      ],
+      [
+        "explorer.jpg",
+        "The real sorting explorer: step through comparisons and swaps. Playback speed is not a benchmark."
+      ]
+    ],
+    "demo": "https://benjanning.github.io/Sorting-Algorithms-Project/",
+    "demo_label": "Try sorting explorer",
+    "demo_disclosure": "Interactive browser explanation of three sorting approaches. Playback is illustrative; measured Python benchmarks are presented separately."
+  },
+  "assets": [
+    {
+      "name": "benchmark.png",
+      "sha256": "1fdaf5150cbfea253f474660d06ea597f231800fbdd72bed8931f809437693ba",
+      "bytes": 181445,
+      "provenance": "Genuine measured Python medians and observed IQR from saved raw observations; exact algorithm hashes and measurement environment are retained."
+    },
+    {
+      "name": "comparison.png",
+      "sha256": "6a0a032fe8169c1a5e76151195f2f7ac3acadbb2ea08dec93058dcd369d4b6d7",
+      "bytes": 65573,
+      "provenance": "The same saved observations at input size 1000 on a linear axis. This is an environment/workload-specific comparison, not a universal ranking."
+    },
+    {
+      "name": "explorer.jpg",
+      "sha256": "60f59ba0bab8f0a5633f998ee079bb97618c5183de41b0033bba825bb6cc65ec",
+      "bytes": 149920,
+      "provenance": "Actual browser screenshot of instrumented JavaScript ports of three source sorting approaches, captured after trace parity and browser controls pass."
+    },
+    {
+      "name": "mobile-explorer.jpg",
+      "sha256": "0fc240953ec8185c1668ade7a4bd4d173eb147ef6f9ef6050067bdc454f28e1b",
+      "bytes": 109827,
+      "provenance": "Actual 390px browser screenshot with a dense 20-value case; no fabricated interface or runtime claim."
+    }
+  ]
+}
