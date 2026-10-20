@@ -1,0 +1,30 @@
+{
+  "algorithm_hashes": {
+    "bubble_sort.py": "21918fe328b17036508582f0c68e2094509dcb8b199f0bd50117d02d2cf47c1b",
+    "insertion_sort.py": "235f9f665933161bda7a6f115e3733e0bf1b859fde033916032d32b42349a2c9",
+    "selection_sort.py": "7133b46f1b40a630e4e47e8451e1db2eb3c7e10ddc4a0fb6719831fa6a0abb59",
+    "quick_sort.py": "d68480a40f66c1475ceb798007f91ffb6fb06261b9203b8a5ae5fc10dd3a9201",
+    "radix_sort.py": "101cea381865e7176ded9ea2bab3ae5454e54969f18d69fc0a965269370d91bd"
+  },
+  "hash_format": "SHA-256 of UTF-8 text with LF line endings; platform line endings do not change the measured algorithm",
+  "seed": 40,
+  "sizes": [
+    50,
+    100,
+    250,
+    500,
+    1000
+  ],
+  "repeats": 5,
+  "total_verified_sorts": 125,
+  "input": "Identical seeded non-negative integer samples per size for every algorithm",
+  "timer": "perf_counter; copies and correctness checks excluded from timing",
+  "python": "3.12.2",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "output_hashes": {
+    "raw-timings.csv": "8243a7cd8d50b02e256741332bb64f8d2624e4fee4531b597a6415084cc9c7e4",
+    "timings.csv": "a3442b375dc6f5506837804d42af21cecd60942f4e3a060c67c14a192c9032ef"
+  },
+  "limits": "Single execution environment; five samples per size; IQR is observed variability, not a confidence interval. Browser animation timings are not benchmark results."
+}

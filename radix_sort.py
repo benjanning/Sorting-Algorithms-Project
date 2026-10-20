@@ -2,7 +2,7 @@ def radixSort(arr):
     # find the maximum element in the array
     if not arr:
         return []
-    if any((not isinstance(value, int) or value < 0) for value in arr):
+    if any((isinstance(value, bool) or not isinstance(value, int) or value < 0) for value in arr):
         raise ValueError("radixSort only supports non-negative integers")
     max_element = max(arr)
     # find the number of digits in the maximum element

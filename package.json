@@ -1,0 +1,1 @@
+{"name":"sort-lab-verification","private":true,"scripts":{"test:trace":"node --test tests/trace.test.cjs","test:browser":"playwright test"},"devDependencies":{"@playwright/test":"1.56.1"}}
