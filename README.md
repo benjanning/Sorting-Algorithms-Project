@@ -6,7 +6,7 @@ Five original Python implementations, traceable measurements and a small explore
 
 **Python · Algorithms · Benchmarking · JavaScript · Matplotlib**
 
-[Visual case study](https://benjanning.github.io/projects/projects/sorting-algorithms/) · [Portfolio](https://benjanning.github.io/projects/)
+**[Try the sorting explorer →](https://benjanning.github.io/Sorting-Algorithms-Project/)** · [Visual case study](https://benjanning.github.io/projects/projects/sorting-algorithms/) · [Portfolio](https://benjanning.github.io/projects/)
 
 ## Measure fairly. Explain clearly.
 
