@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_repository": "benjanning/Sorting-Algorithms-Project",
-  "source_revision": "df3eafa20d2dbd2ef1aa1259fd41d96c42a36cf8",
-  "verification_run": 39432877151,
+  "source_revision": "0eae4a2cac4d84c0e48cb72a0711133f643bce49",
+  "verification_run": 39608142867,
   "project": {
     "slug": "sorting-algorithms",
     "title": "Sorting algorithms, measured",
@@ -10,40 +10,45 @@
     "repo": "Sorting-Algorithms-Project",
     "stack": [
       "Python",
+      "JavaScript",
       "Algorithms",
-      "Benchmarking",
-      "Matplotlib"
+      "Benchmarking"
     ],
-    "image": "benchmark.png",
-    "alt": "Measured runtimes and observed interquartile ranges of five Python sorting implementations",
-    "desc": "Measure five sorting implementations, then step through the work behind three of them in a simple interactive explorer.",
-    "built": "Preserved five original Python algorithms and their confirmed tests, added traceable raw benchmark measurements and built a small browser explorer that shows real algorithm operations.",
+    "image": "operation-comparison.png",
+    "alt": "Actual Sort Lab table comparing key comparisons and index swaps for three traces on the same custom input",
+    "desc": "Compare sorting work on the same input, inspect each real trace and keep operation counts separate from measured runtimes.",
+    "built": "Extended Sort Lab with complete operation comparisons and validated custom inputs while preserving all five Python implementations, their tests and traceable benchmark observations.",
     "why": "Two methods can produce the same answer while taking very different amounts of work. Correctness and measurement help make that trade-off visible.",
     "how": [
-      "Check every measured output against a trusted sorted result and compare five implementations on identical seeded inputs.",
-      "Record raw timings, medians and IQR with implementation hashes and environment details; reuse verified observations when the code is unchanged.",
-      "Step through instrumented bubble, selection and rightmost-pivot quicksort ports on the same starting values."
+      "Choose a generated pattern/size or enter 1–24 whole numbers; the same unchanged starting input feeds all three browser traces.",
+      "Compare complete key-comparison/index-swap totals, then open any trace, step backwards/forwards or reset to that exact input.",
+      "Inspect the separately measured five-algorithm Python benchmark, whose unchanged implementation/output hashes preserve the original observations."
     ],
-    "demonstrates": "Algorithmic thinking, regression testing, reproducible experimentation and interpreting performance evidence.",
-    "caption": "Five identical seeded random samples per input size. Lines show median measured milliseconds; bands show observed IQR, not confidence intervals. The recorded environment and exact implementation hashes accompany the data.",
-    "result": "Five Python implementations passed correctness checks on 125 measured sorts: five identical seeded random samples at each size from 50 to 1,000. Median and IQR are calculated from saved raw measurements. Measurements were recorded on Windows-11-10.0.26300-SP0 with Python 3.12.2; unchanged algorithm hashes reuse those observations. The browser explorer illustrates operations separately and its animation speed is not a performance measurement.",
+    "demonstrates": "Algorithmic reasoning, controlled comparisons, state management, regression testing and accessible interactive explanation.",
+    "caption": "Genuine browser capture: complete trace totals for one shared custom input. These are key comparisons and index exchanges in JavaScript, not elapsed time or Python benchmark measurements.",
+    "result": "Five Python implementations passed correctness checks on 125 measured sorts: five identical seeded random samples at each size from 50 to 1,000. Median and IQR are calculated from saved raw measurements. Measurements were recorded on Windows-11-10.0.26300-SP0 with Python 3.12.2; unchanged algorithm hashes reuse those observations. The browser explorer compares complete key-comparison/index-swap totals for three actual traces on the same generated or validated custom input. Selecting a trace and resetting preserve its starting values. These operation counts and animation pace are separate from the recorded Python runtime measurements.",
     "limits": "Measurements cover random non-negative integer inputs from 50 to 1,000 in one recorded environment; they do not establish a universal ranking. IQR describes observed variation, not confidence. Rightmost-pivot recursive quicksort has adverse-input recursion limits. Radix supports non-negative integers and rejects booleans/fractions. The browser explorer ports only three approaches and limits inputs to 24 values; animation pace is unrelated to Python runtime.",
-    "technical": "Seven Python test methods preserve original correctness checks and validate raw timing aggregation, cache provenance and radix input domains. Three Node tests compare final traces with actual Python outputs, check permutation preservation at every step and reconcile known operation counts. The browser workflow exercises completion, controls, reset and mobile layout before publishing screenshots. Selection self placements are shown but do not count as index-changing swaps. Benchmark copies and correctness checks are excluded from measured timing.",
+    "technical": "Seven Python tests preserve algorithm correctness and benchmark-cache provenance. Five Node checks compare final traces with actual Python outputs, preserve every intermediate multiset, reconcile independently known counts and validate custom input syntax/bounds. Three browser journeys verify all row-to-trace totals, duplicate/custom input, retained-input resets, invalid-input recovery, playback and dense 24-value mobile layout. Cached traces make algorithm selection reuse the exact same input. Swaps count exchanges between different indices, including equal values; self placements are shown but not counted. Bar heights share a scale across each input and zero values remain visible. Python algorithm bytes and recorded benchmark data are unchanged.",
     "run": "Install requirements.txt; run python benchmark_portfolio.py, python plot_portfolio.py and python -m unittest discover -p \"test_*.py\" -v. Use --refresh to request new measurements. For browser verification, build Python fixtures and docs, npm ci, npm run test:trace and npm run test:browser.",
     "extra": "",
     "gallery": [
       [
-        "comparison.png",
-        "The same measurements at 1,000 values, shown on a linear scale."
+        "custom-trace.png",
+        "The same custom values feed the selected trace, shared table and reset; small values use a readable common bar scale."
       ],
       [
-        "explorer.jpg",
-        "The real sorting explorer: step through comparisons and swaps. Playback speed is not a benchmark."
+        "benchmark.png",
+        "Preserved measured Python medians and observed IQR for five algorithms; playback pace never changes these measurements."
+      ],
+      [
+        "comparison.png",
+        "The same original benchmark observations at 1,000 values, on a linear scale."
       ]
     ],
     "demo": "https://benjanning.github.io/Sorting-Algorithms-Project/",
     "demo_label": "Try sorting explorer",
-    "demo_disclosure": "Interactive browser explanation of three sorting approaches. Playback is illustrative; measured Python benchmarks are presented separately."
+    "demo_disclosure": "Interactive browser explanation of three sorting approaches. Playback is illustrative; measured Python benchmarks are presented separately.",
+    "challenge": "A comparison is only fair if every algorithm starts with the same values. The original controls regenerated input whenever the algorithm changed; deterministic examples hid that dependency. A shared current-input state and cached traces now keep custom values stable across selection, exploration and reset. Complete totals and in-progress counters are labelled separately, while the measured benchmark remains a separate experiment."
   },
   "assets": [
     {
@@ -60,15 +65,33 @@
     },
     {
       "name": "explorer.jpg",
-      "sha256": "60f59ba0bab8f0a5633f998ee079bb97618c5183de41b0033bba825bb6cc65ec",
-      "bytes": 149920,
+      "sha256": "f90bd294f620ddcbcbedbb969a92c5433397bdfdfc16af42aeb273c2bec729d1",
+      "bytes": 212590,
       "provenance": "Actual browser screenshot of instrumented JavaScript ports of three source sorting approaches, captured after trace parity and browser controls pass."
     },
     {
       "name": "mobile-explorer.jpg",
-      "sha256": "0fc240953ec8185c1668ade7a4bd4d173eb147ef6f9ef6050067bdc454f28e1b",
-      "bytes": 109827,
+      "sha256": "7d069025dead98d6f959eb06023f7d02a6111eb450180c94a3f1fd84c83d1519",
+      "bytes": 153928,
       "provenance": "Actual 390px browser screenshot with a dense 20-value case; no fabricated interface or runtime claim."
+    },
+    {
+      "name": "operation-comparison.png",
+      "sha256": "8ca5d5a05c0c842ce0e8b7259a00130c0efd0726ef4c1e14a1885adf3ff9984f",
+      "bytes": 102108,
+      "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
+    },
+    {
+      "name": "custom-trace.png",
+      "sha256": "2911e50ccaa632e08b273a2352db50a2f0bb77afaaae66585c4c45c723e1aa21",
+      "bytes": 84013,
+      "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
+    },
+    {
+      "name": "custom-mobile.jpg",
+      "sha256": "87ec86b5900d56a77eae7238c2c03d116114249250a3b57212931a164cc4d663",
+      "bytes": 174846,
+      "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
     }
   ]
 }
