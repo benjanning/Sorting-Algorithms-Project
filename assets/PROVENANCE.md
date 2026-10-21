@@ -6,3 +6,7 @@ See the project and the central portfolio assets/PROVENANCE.md for source data a
 ## V3 benchmark and explorer
 
 results/benchmark.png and comparison.png are genuine plots of results/raw-timings.csv and timings.csv. The separate V1 timing files are preserved. Measurement environment, SHA-256 of normalized implementation files and output data are recorded in benchmark-methodology.json. IQR is observed variability, not a confidence interval. docs/ is original HTML/CSS/JS; instrumented ports show real swaps/comparisons. Source CI captures authentic desktop/mobile screenshots after Python-output parity, trace invariants and browser checks pass. Playback pace is not a performance result.
+
+## V4 same-input comparison
+
+Operation-comparison, custom-trace and custom-mobile assets are actual browser captures after table-to-trace reconciliation, custom-domain/recovery/reset checks and dense mobile verification. Counts describe actual key comparisons and different-index exchanges, including equal-valued exchanges; they are not elapsed time. Original Python algorithm hashes and runtime observations remain unchanged and separately attributed.

@@ -1,1 +1,19 @@
-const {defineConfig}=require('@playwright/test');module.exports=defineConfig({testDir:'tests',testMatch:'*.spec.cjs',workers:1,retries:0,use:{viewport:{width:1440,height:1000},reducedMotion:'reduce'},webServer:{command:'python -m http.server 8089 --bind 127.0.0.1 --directory docs',url:'http://127.0.0.1:8089',reuseExistingServer:false}});
+const { defineConfig } = require("@playwright/test");
+module.exports = defineConfig({
+  testDir: "tests",
+  testMatch: "*.spec.cjs",
+  workers: 1,
+  retries: 0,
+  reporter: [
+    ["list"],
+    ["json", { outputFile: "verification/browser-results.json" }],
+  ],
+  use: { viewport: { width: 1440, height: 1000 }, reducedMotion: "reduce" },
+  webServer: process.env.SORT_LAB_BASE
+    ? undefined
+    : {
+        command: "python -m http.server 8089 --bind 127.0.0.1 --directory docs",
+        url: "http://127.0.0.1:8089",
+        reuseExistingServer: false,
+      },
+});
