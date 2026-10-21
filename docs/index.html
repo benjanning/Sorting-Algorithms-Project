@@ -1,1 +1,231 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sort lab · See the work behind the order</title><meta name="description" content="Step through actual bubble, selection and rightmost-pivot quicksort operations. Explore the original five Python implementations and measured benchmarks."><link rel="stylesheet" href="style.css"><script src="trace.js" defer></script><script src="app.js" defer></script></head><body><a class="skip" href="#main">Skip to explorer</a><header><a class="brand" href="./">s<span>↗</span> <strong>sort lab</strong></a><nav><a href="https://benjanning.github.io/projects/projects/sorting-algorithms/">Case study</a><a href="https://github.com/benjanning/Sorting-Algorithms-Project">Source ↗</a></nav></header><main id="main"><section class="intro"><span class="eyebrow">BEN JANNING / ALGORITHMS, MADE VISIBLE</span><h1>See the work<br>behind the <em>order.</em></h1><p>Three approaches. The same starting values. Follow the comparisons and swaps, one useful step at a time.</p></section><section class="explorer" aria-label="Interactive sorting explorer"><aside><span class="eyebrow">SET UP YOUR COMPARISON</span><label for="algorithm">Algorithm</label><select id="algorithm"><option value="bubble">Bubble sort</option><option value="selection">Selection sort</option><option value="quick">Quicksort · rightmost pivot</option></select><label for="pattern">Starting pattern</label><select id="pattern"><option value="random">Seeded shuffle</option><option value="sorted">Already sorted</option><option value="reversed">Reverse order</option><option value="duplicates">Repeated values</option></select><label for="size">Number of values</label><select id="size"><option>8</option><option selected>12</option><option>20</option></select><label for="speed">Playback pace</label><select id="speed"><option value="700">Thoughtful</option><option value="350" selected>Steady</option><option value="120">Quick</option></select><p class="fine">Playback pace changes the illustration, not the algorithm or its benchmark result.</p><button type="button" class="secondary" id="reset">Reset to the same input ↺</button></aside><div class="visual"><div class="visual-head"><div><span class="eyebrow">WATCH THE WORK</span><h2 id="algorithm-name">Bubble sort</h2></div><span id="step-count">Step 0</span></div><div id="bars" role="img" aria-label="Starting values"></div><p class="step-note" id="step-note" role="status"></p><div class="controls"><button type="button" class="primary" id="play">Play →</button><button type="button" class="secondary" id="previous">← Previous</button><button type="button" class="secondary" id="next">Next step →</button></div><label for="timeline" class="sr-only">Choose a step</label><input id="timeline" type="range" min="0" value="0"><div class="metrics"><div><span>Comparisons so far</span><strong id="comparisons">0</strong></div><div><span>Swaps so far</span><strong id="swaps">0</strong></div><p>These counts come from the illustrated trace. Self placements do not count as swaps.</p></div></div></section><section class="explanations"><article><span>01 / BUBBLE</span><h3>Make local exchanges.</h3><p>Compare neighbours and swap those out of order. Stop early if a pass makes no swaps.</p></article><article><span>02 / SELECTION</span><h3>Choose the next minimum.</h3><p>Scan the remaining values, then put the smallest into its final position.</p></article><article><span>03 / QUICK</span><h3>Divide around a pivot.</h3><p>Use the last value as pivot, partition with a strict less-than comparison, then repeat on each side.</p></article></section><section class="benchmark"><div><span class="eyebrow">MEASURED SEPARATELY</span><h2>Animations explain.<br><em>Benchmarks measure.</em></h2><p>The Python project compares all five implementations, including insertion and radix sorting, on identical seeded inputs. Open the case study for raw measurements, assumptions and limitations.</p><a href="https://benjanning.github.io/projects/projects/sorting-algorithms/">Explore the measured results ↗</a></div><img src="benchmark.png" alt="Actual median runtimes and observed interquartile ranges for five Python sorting algorithms"></section></main><footer>Original educational implementations, refined for clear explanation. Browser traces are JavaScript ports of three Python approaches; animation speed is not a performance claim.</footer></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Sort lab · See the work behind the order</title>
+    <meta
+      name="description"
+      content="Step through actual bubble, selection and rightmost-pivot quicksort operations. Explore the original five Python implementations and measured benchmarks."
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="trace.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to explorer</a>
+    <header>
+      <a class="brand" href="./">s<span>↗</span> <strong>sort lab</strong></a>
+      <nav>
+        <a
+          href="https://benjanning.github.io/projects/projects/sorting-algorithms/"
+          >Case study</a
+        ><a href="https://github.com/benjanning/Sorting-Algorithms-Project"
+          >Source ↗</a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="intro">
+        <span class="eyebrow">BEN JANNING / ALGORITHMS, MADE VISIBLE</span>
+        <h1>See the work<br />behind the <em>order.</em></h1>
+        <p>
+          Three approaches. The same starting values. Follow the comparisons and
+          swaps, one useful step at a time.
+        </p>
+      </section>
+      <section class="explorer" aria-label="Interactive sorting explorer">
+        <aside>
+          <span class="eyebrow">SET UP YOUR COMPARISON</span>
+          <p id="input-mode" class="fine"></p>
+          <label for="algorithm">Algorithm</label
+          ><select id="algorithm">
+            <option value="bubble">Bubble sort</option>
+            <option value="selection">Selection sort</option>
+            <option value="quick">Quicksort · rightmost pivot</option></select
+          ><label for="pattern">Starting pattern</label
+          ><select id="pattern">
+            <option value="random">Seeded shuffle</option>
+            <option value="sorted">Already sorted</option>
+            <option value="reversed">Reverse order</option>
+            <option value="duplicates">Repeated values</option></select
+          ><label for="size">Number of values</label
+          ><select id="size">
+            <option>8</option>
+            <option selected>12</option>
+            <option>20</option></select
+          ><label for="speed">Playback pace</label
+          ><select id="speed">
+            <option value="700">Thoughtful</option>
+            <option value="350" selected>Steady</option>
+            <option value="120">Quick</option>
+          </select>
+          <p class="fine">
+            Playback pace changes the illustration, not the algorithm or its
+            benchmark result.
+          </p>
+          <button type="button" class="secondary" id="reset">
+            Reset to the same input ↺
+          </button>
+        </aside>
+        <div class="visual">
+          <div class="visual-head">
+            <div>
+              <span class="eyebrow">WATCH THE WORK</span>
+              <h2 id="algorithm-name" tabindex="-1">Bubble sort</h2>
+            </div>
+            <span id="step-count">Step 0</span>
+          </div>
+          <div id="bars" role="img" aria-label="Starting values"></div>
+          <p class="step-note" id="step-note" role="status"></p>
+          <div class="controls">
+            <button type="button" class="primary" id="play">Play →</button
+            ><button type="button" class="secondary" id="previous">
+              ← Previous</button
+            ><button type="button" class="secondary" id="next">
+              Next step →
+            </button>
+          </div>
+          <label for="timeline" class="sr-only">Choose a step</label
+          ><input id="timeline" type="range" min="0" value="0" />
+          <div class="metrics">
+            <div>
+              <span>Comparisons so far</span><strong id="comparisons">0</strong>
+            </div>
+            <div><span>Swaps so far</span><strong id="swaps">0</strong></div>
+            <p>
+              These counts come from the illustrated trace. Swaps exchange
+              different indices, including equal values; self placements do not
+              count.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section
+        class="input-comparison"
+        aria-label="Compare sorting work on the same input"
+      >
+        <div class="comparison-heading">
+          <div>
+            <span class="eyebrow">SAME VALUES / DIFFERENT AMOUNTS OF WORK</span>
+            <h2>Compare the operations.</h2>
+          </div>
+          <p>
+            These are complete trace totals, not elapsed time. Explore any row
+            to follow its actual work.
+          </p>
+        </div>
+        <p id="input-description" class="input-description"></p>
+        <p
+          id="input-status"
+          class="sr-only"
+          role="status"
+          aria-live="polite"
+        ></p>
+        <div
+          class="comparison-scroll"
+          tabindex="0"
+          role="region"
+          aria-label="Operation comparison table, scroll horizontally on narrow screens"
+        >
+          <table>
+            <caption>
+              All three algorithms start with exactly the values shown above.
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col">Algorithm</th>
+                <th scope="col">Key comparisons</th>
+                <th scope="col">Index swaps</th>
+                <th scope="col">Inspect</th>
+              </tr>
+            </thead>
+            <tbody id="comparison-table"></tbody>
+          </table>
+        </div>
+        <p class="fine">
+          Comparisons count tests between data values, not loop bounds. Swaps
+          exchange different indices and can exchange equal values. These
+          JavaScript trace counts are not measured Python runtimes.
+        </p>
+        <details class="custom-input">
+          <summary>Try your own starting values</summary>
+          <form id="custom-form">
+            <label for="custom-values">Custom starting values</label
+            ><input
+              id="custom-values"
+              type="text"
+              maxlength="120"
+              placeholder="8, 3, 3, 1, 9"
+              aria-describedby="custom-help"
+            />
+            <p class="fine" id="custom-help">
+              Enter 1–24 whole numbers from 0 to 99, separated by spaces or
+              commas. Applying custom values replaces the current input for all
+              three traces. Changing the pattern or size returns to generated
+              values.
+            </p>
+            <div id="custom-error" role="alert" tabindex="-1" hidden></div>
+            <button class="primary" type="submit">Compare custom values</button>
+          </form>
+        </details>
+        <p class="comparison-tip">
+          Try an already sorted input: bubble sort can stop after a swap-free
+          pass, while a rightmost pivot can leave quicksort with uneven
+          partitions. Input shape matters; fewer swaps alone do not establish a
+          faster implementation.
+        </p>
+      </section>
+      <section class="explanations">
+        <article>
+          <span>01 / BUBBLE</span>
+          <h3>Make local exchanges.</h3>
+          <p>
+            Compare neighbours and swap those out of order. Stop early if a pass
+            makes no swaps.
+          </p>
+        </article>
+        <article>
+          <span>02 / SELECTION</span>
+          <h3>Choose the next minimum.</h3>
+          <p>
+            Scan the remaining values, then put the smallest into its final
+            position.
+          </p>
+        </article>
+        <article>
+          <span>03 / QUICK</span>
+          <h3>Divide around a pivot.</h3>
+          <p>
+            Use the last value as pivot, partition with a strict less-than
+            comparison, then repeat on each side.
+          </p>
+        </article>
+      </section>
+      <section class="benchmark">
+        <div>
+          <span class="eyebrow">MEASURED SEPARATELY</span>
+          <h2>Animations explain.<br /><em>Benchmarks measure.</em></h2>
+          <p>
+            The Python project compares all five implementations, including
+            insertion and radix sorting, on identical seeded inputs. Open the
+            case study for raw measurements, assumptions and limitations.
+          </p>
+          <a
+            href="https://benjanning.github.io/projects/projects/sorting-algorithms/"
+            >Explore the measured results ↗</a
+          >
+        </div>
+        <img
+          src="benchmark.png"
+          alt="Actual median runtimes and observed interquartile ranges for five Python sorting algorithms"
+        />
+      </section>
+    </main>
+    <footer>
+      Original educational implementations, refined for clear explanation.
+      Browser traces are JavaScript ports of three Python approaches; animation
+      speed is not a performance claim.
+    </footer>
+  </body>
+</html>
