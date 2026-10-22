@@ -19,6 +19,7 @@
   function show() {
     const frame = frames[position];
     const maximum = Math.max(1, ...input);
+    const showOrigins = $("#show-origins").checked;
     $("#bars").replaceChildren(
       ...frame.values.map((value, index) => {
         const bar = document.createElement("div");
@@ -30,13 +31,45 @@
         const label = document.createElement("span");
         label.textContent = value;
         bar.append(label);
+        if (showOrigins) {
+          const origin = document.createElement("small");
+          origin.className = "origin";
+          origin.textContent = "#" + (frame.origins[index] + 1);
+          bar.append(origin);
+        }
         return bar;
       }),
     );
     $("#bars").classList.toggle("dense", input.length > 20);
+    $("#bars").classList.toggle("with-origins", showOrigins);
+    $("#origin-help").hidden = !showOrigins;
+    const order = SortLab.equalOrder(input, frame.origins);
+    $("#order-detail").hidden = !showOrigins || !order.hasRepeats;
+    $("#order-status").textContent = !showOrigins
+      ? ""
+      : !order.hasRepeats
+        ? "No equal values in this input. Original positions identify the starting items."
+        : `${order.preserved ? "Equal values retain" : "Some equal values have changed"} their original relative order at this step.`;
+    $("#order-list").replaceChildren(
+      ...order.groups.map((group) => {
+        const item = document.createElement("li");
+        const positions = (ids) => ids.map((id) => "#" + (id + 1)).join(" → ");
+        item.textContent = `Value ${group.value}: originally ${positions(group.original)}; now ${positions(group.current)}.`;
+        return item;
+      }),
+    );
     $("#bars").setAttribute(
       "aria-label",
-      "Values at step " + position + ": " + frame.values.join(", "),
+      "Values at step " +
+        position +
+        ": " +
+        frame.values
+          .map((value, i) =>
+            showOrigins
+              ? `${value} (original position ${frame.origins[i] + 1})`
+              : value,
+          )
+          .join(", "),
     );
     $("#comparisons").textContent = frame.comparisons;
     $("#swaps").textContent = frame.swaps;
@@ -91,6 +124,15 @@
           cell.textContent = value;
           row.append(cell);
         }
+        const order = SortLab.equalOrder(input, frame.origins),
+          orderCell = document.createElement("td");
+        orderCell.className = "equal-order-result";
+        orderCell.textContent = !order.hasRepeats
+          ? "No equal values"
+          : order.preserved
+            ? "Preserved on this input"
+            : "Reordered on this input";
+        row.append(orderCell);
         const action = document.createElement("td"),
           button = document.createElement("button");
         button.type = "button";
@@ -168,6 +210,10 @@
       sample();
     };
   $("#speed").onchange = stop;
+  $("#show-origins").onchange = () => {
+    stop();
+    show();
+  };
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) stop();
   });
