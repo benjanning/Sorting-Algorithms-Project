@@ -10,3 +10,7 @@ results/benchmark.png and comparison.png are genuine plots of results/raw-timing
 ## V4 same-input comparison
 
 Operation-comparison, custom-trace and custom-mobile assets are actual browser captures after table-to-trace reconciliation, custom-domain/recovery/reset checks and dense mobile verification. Counts describe actual key comparisons and different-index exchanges, including equal-valued exchanges; they are not elapsed time. Original Python algorithm hashes and runtime observations remain unchanged and separately attributed.
+
+## V5 original item evidence
+
+item-origins.jpg, mobile-item-origins.jpg and equal-order-comparison.jpg are actual captures with original-position labels for a shared custom input. Labels follow real exchanges; the disclosure/table report observed order, explicitly distinct from a general stability proof. Tests check known reversals, immutable snapshots and readable 24-item mobile labels. Python algorithm bytes, recorded measurements and measured figures are unchanged.

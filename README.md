@@ -16,6 +16,16 @@ Bubble, insertion, selection, quick and radix sort receive the same five seeded 
 
 This is one workload in one environment, not a universal speed ranking. Bands show observed IQR, not confidence intervals. The original V1 `verified_timings.csv` and historical charts remain intact; new results live under `results/`.
 
+## Follow the original items
+
+Enable **Show original positions** to distinguish equal items. Each # marks its one-based starting position and follows every actual exchange. Inspect original/current repeated-value sequences and compare final order across the three traces.
+
+Selection on `2, 2, 1` reverses its two 2s; rightmost-pivot quicksort on `2, 1, 2` also reverses them. Bubble's strict adjacent swaps preserve equal-item order. A preserved result for selection or quicksort on another example is not a general stability guarantee.
+
+Toggling labels retains the step and input. Dense labelled charts scroll within their own focusable region, with readable labels on mobile. [Identity model and checks](ITEM-ORDER.md).
+
+![Actual trace with original item identities](https://raw.githubusercontent.com/benjanning/Sorting-Algorithms-Project/portfolio-published/portfolio/export/assets/item-origins.jpg)
+
 ## Compare work on the same input
 
 A complete table compares key comparisons and index swaps for all three browser traces on **exactly the same starting values**. Open any row to inspect its steps; selecting another algorithm or resetting preserves the current input. Generated patterns/sizes and optional custom inputs make input-shape effects visible without pretending to measure runtime.
@@ -45,7 +55,7 @@ npx playwright install chromium
 npm run test:browser
 ```
 
-Seven Python and five Node regression tests pass locally. Three browser journeys check the original playback, all table-to-trace totals, custom values, recovery, retained-input resets and desktop/mobile layouts up to 24 values before capturing genuine screenshots and publishing the explorer. Its successful exact-revision run is linked from the portfolio.
+Seven Python and eight Node regression tests pass locally. Five browser journeys check the original playback, all table-to-trace totals, custom values, recovery, retained-input resets and desktop/mobile layouts up to 24 values before capturing genuine screenshots and publishing the explorer. Its successful exact-revision run is linked from the portfolio.
 
 `benchmark_portfolio.py` reuses raw observations only if all algorithm hashes and saved data hashes match. `--refresh` deliberately records a new experiment. Text hashes normalize line endings so an unchanged Windows checkout is not mistaken for changed algorithm logic on Linux. See [raw timings](results/raw-timings.csv), [aggregates](results/timings.csv) and [methodology/environment](results/benchmark-methodology.json).
 

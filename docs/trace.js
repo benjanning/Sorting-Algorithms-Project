@@ -1,22 +1,51 @@
 (function (root) {
   "use strict";
-  function trace(kind, input) {
+  function validInput(input) {
+    return (
+      Array.isArray(input) &&
+      input.length <= 24 &&
+      input.every((v) => Number.isInteger(v) && v >= 0 && v <= 99)
+    );
+  }
+  function equalOrder(input, origins) {
     if (
-      !["bubble", "selection", "quick"].includes(kind) ||
-      !Array.isArray(input) ||
-      input.length > 24 ||
-      input.some((v) => !Number.isInteger(v) || v < 0 || v > 99)
+      !validInput(input) ||
+      !Array.isArray(origins) ||
+      origins.length !== input.length ||
+      new Set(origins).size !== input.length ||
+      origins.some((i) => !Number.isInteger(i) || i < 0 || i >= input.length)
     )
+      throw Error("Expected one original position for every input item.");
+    const groups = [...new Set(input)]
+      .sort((a, b) => a - b)
+      .map((value) => ({
+        value,
+        original: input.flatMap((v, i) => (v === value ? [i] : [])),
+        current: origins.filter((i) => input[i] === value),
+      }))
+      .filter((group) => group.original.length > 1);
+    return {
+      hasRepeats: groups.length > 0,
+      preserved: groups.every((group) =>
+        group.original.every((id, i) => id === group.current[i]),
+      ),
+      groups,
+    };
+  }
+  function trace(kind, input) {
+    if (!["bubble", "selection", "quick"].includes(kind) || !validInput(input))
       throw Error(
         "Choose a supported algorithm and at most 24 integers from 0 to 99.",
       );
     const a = input.slice(),
+      origins = input.map((_, i) => i),
       frames = [];
     let comparisons = 0,
       swaps = 0;
     const record = (note, active = []) =>
       frames.push({
         values: a.slice(),
+        origins: origins.slice(),
         active: active.slice(),
         comparisons,
         swaps,
@@ -25,6 +54,7 @@
     const exchange = (i, j, note) => {
       if (i !== j) {
         [a[i], a[j]] = [a[j], a[i]];
+        [origins[i], origins[j]] = [origins[j], origins[i]];
         swaps++;
       }
       record(note, [i, j]);
@@ -135,7 +165,7 @@
       );
     return tokens.map(Number);
   }
-  const api = { trace, sample, parseInput };
+  const api = { trace, sample, parseInput, equalOrder };
   if (typeof module !== "undefined") module.exports = api;
   else root.SortLab = api;
 })(typeof window !== "undefined" ? window : globalThis);

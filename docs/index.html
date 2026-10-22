@@ -76,7 +76,35 @@
             </div>
             <span id="step-count">Step 0</span>
           </div>
-          <div id="bars" role="img" aria-label="Starting values"></div>
+          <label class="origin-control"
+            ><input
+              type="checkbox"
+              id="show-origins"
+              aria-describedby="origin-help"
+            />
+            Show original positions</label
+          >
+          <p id="origin-help" class="fine" hidden>
+            Each # marks an item's position in the starting input, not its value
+            or rank. With many items, scroll the chart horizontally to read all
+            labels.
+          </p>
+          <div
+            id="bars"
+            role="img"
+            aria-label="Starting values"
+            tabindex="0"
+          ></div>
+          <p
+            id="order-status"
+            class="fine"
+            role="status"
+            aria-live="polite"
+          ></p>
+          <details id="order-detail" hidden>
+            <summary>Inspect equal-value order at this step</summary>
+            <ul id="order-list"></ul>
+          </details>
           <p class="step-note" id="step-note" role="status"></p>
           <div class="controls">
             <button type="button" class="primary" id="play">Play →</button
@@ -115,6 +143,13 @@
             to follow its actual work.
           </p>
         </div>
+        <p>
+          Stability means preserving equal items' original relative order for
+          every supported input. The table reports only this example: preserving
+          order once is not a proof of stability. Choose
+          <strong>Repeated values</strong> or a custom input with repeats, then
+          enable original positions to follow the items.
+        </p>
         <p id="input-description" class="input-description"></p>
         <p
           id="input-status"
@@ -137,6 +172,7 @@
                 <th scope="col">Algorithm</th>
                 <th scope="col">Key comparisons</th>
                 <th scope="col">Index swaps</th>
+                <th scope="col">Equal-value order at finish</th>
                 <th scope="col">Inspect</th>
               </tr>
             </thead>
@@ -146,7 +182,8 @@
         <p class="fine">
           Comparisons count tests between data values, not loop bounds. Swaps
           exchange different indices and can exchange equal values. These
-          JavaScript trace counts are not measured Python runtimes.
+          JavaScript trace counts are not measured Python runtimes. Scroll the
+          table horizontally on narrow screens to inspect every column.
         </p>
         <details class="custom-input">
           <summary>Try your own starting values</summary>

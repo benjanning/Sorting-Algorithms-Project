@@ -76,3 +76,72 @@ test("complete comparison totals are known independently for reversed and equal 
   assert.equal(equal.comparisons, 3);
   assert.equal(equal.swaps, 2);
 });
+
+test("every frame keeps immutable original identities consistent with actual values", () => {
+  const cases = JSON.parse(
+    fs.readFileSync("verification/python-fixtures.json", "utf8"),
+  );
+  for (const item of cases)
+    for (const kind of ["bubble", "selection", "quick"]) {
+      const frames = trace(kind, item.input);
+      for (const frame of frames) {
+        assert.deepEqual(
+          frame.origins.slice().sort((a, b) => a - b),
+          item.input.map((_, i) => i),
+        );
+        assert.deepEqual(
+          frame.origins.map((id) => item.input[id]),
+          frame.values,
+        );
+      }
+      if (item.input.length) {
+        const start = frames[0].origins.slice();
+        frames.at(-1).origins[0] = -1;
+        assert.deepEqual(frames[0].origins, start);
+        assert.deepEqual(trace(kind, item.input)[0].origins, start);
+      }
+    }
+});
+test("known equal-value reversals and preserved orders use original item identities", () => {
+  const { equalOrder } = require("../docs/trace");
+  for (const [kind, input, ids, preserved] of [
+    ["selection", [2, 2, 1], [2, 1, 0], false],
+    ["bubble", [2, 2, 1], [2, 0, 1], true],
+    ["quick", [2, 1, 2], [1, 2, 0], false],
+    ["selection", [1, 1, 1], [0, 1, 2], true],
+    ["quick", [1, 1, 1], [2, 0, 1], false],
+  ]) {
+    const last = trace(kind, input).at(-1);
+    assert.deepEqual(last.origins, ids);
+    const order = equalOrder(input, last.origins);
+    assert.equal(order.hasRepeats, true);
+    assert.equal(order.preserved, preserved);
+  }
+  assert.deepEqual(equalOrder([2, 2, 1], [2, 1, 0]).groups, [
+    { value: 2, original: [0, 1], current: [1, 0] },
+  ]);
+  assert.equal(equalOrder([3, 1, 2], [1, 2, 0]).hasRepeats, false);
+  assert.deepEqual(equalOrder([], []), {
+    hasRepeats: false,
+    preserved: true,
+    groups: [],
+  });
+});
+test("equal-order inspection rejects missing, duplicate and invalid identities", () => {
+  const { equalOrder } = require("../docs/trace");
+  for (const ids of [
+    [0, 0, 1],
+    [0, 1],
+    [-1, 1, 2],
+    [0, 1, 3],
+    [0, 1, 1.5],
+    [true, 1, 2],
+    null,
+  ])
+    assert.throws(() => equalOrder([2, 2, 1], ids));
+  const input = [2, 2, 1],
+    ids = [2, 1, 0];
+  const before = JSON.stringify([input, ids]);
+  equalOrder(input, ids);
+  assert.equal(JSON.stringify([input, ids]), before);
+});
