@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_repository": "benjanning/Sorting-Algorithms-Project",
-  "source_revision": "0eae4a2cac4d84c0e48cb72a0711133f643bce49",
-  "verification_run": 39608142867,
+  "source_revision": "c3f9946013e9fe8ee7685f4f08b527f9aea599dd",
+  "verification_run": 39841922512,
   "project": {
     "slug": "sorting-algorithms",
     "title": "Sorting algorithms, measured",
@@ -14,41 +14,41 @@
       "Algorithms",
       "Benchmarking"
     ],
-    "image": "operation-comparison.png",
-    "alt": "Actual Sort Lab table comparing key comparisons and index swaps for three traces on the same custom input",
-    "desc": "Compare sorting work on the same input, inspect each real trace and keep operation counts separate from measured runtimes.",
-    "built": "Extended Sort Lab with complete operation comparisons and validated custom inputs while preserving all five Python implementations, their tests and traceable benchmark observations.",
-    "why": "Two methods can produce the same answer while taking very different amounts of work. Correctness and measurement help make that trade-off visible.",
+    "image": "item-origins.jpg",
+    "alt": "Actual sorting trace with original-position markers and exact evidence of equal items changing relative order",
+    "desc": "Track original items through sorting exchanges and inspect equal-value order, while keeping operation counts separate from runtime.",
+    "built": "Extended the existing traces with immutable original item identities, optional position labels and observed equal-value order evidence on the same shared input.",
+    "why": "Equal numbers look interchangeable in a sorting animation. Original positions reveal relative-order changes and help distinguish one observed result from a general stability guarantee.",
     "how": [
-      "Choose a generated pattern/size or enter 1–24 whole numbers; the same unchanged starting input feeds all three browser traces.",
-      "Compare complete key-comparison/index-swap totals, then open any trace, step backwards/forwards or reset to that exact input.",
-      "Inspect the separately measured five-algorithm Python benchmark, whose unchanged implementation/output hashes preserve the original observations."
+      "Choose repeated values or a custom input, then enable original positions. Each # identifies a starting item, independent of its value or current rank.",
+      "Step through actual exchanges and inspect the original/current order of repeated values. Compare observed final order for the same input across three traces.",
+      "Keep operation totals separate from the preserved five-algorithm Python benchmark; original implementations and recorded measurements remain unchanged."
     ],
-    "demonstrates": "Algorithmic reasoning, controlled comparisons, state management, regression testing and accessible interactive explanation.",
-    "caption": "Genuine browser capture: complete trace totals for one shared custom input. These are key comparisons and index exchanges in JavaScript, not elapsed time or Python benchmark measurements.",
+    "demonstrates": "Algorithmic reasoning, immutable trace state, controlled examples, regression testing and accessible interactive teaching.",
+    "caption": "Genuine browser capture with original positions enabled. Equal-item order follows actual exchanges. Counts are JavaScript trace operations, not measured Python runtime.",
     "result": "Five Python implementations passed correctness checks on 125 measured sorts: five identical seeded random samples at each size from 50 to 1,000. Median and IQR are calculated from saved raw measurements. Measurements were recorded on Windows-11-10.0.26300-SP0 with Python 3.12.2; unchanged algorithm hashes reuse those observations. The browser explorer compares complete key-comparison/index-swap totals for three actual traces on the same generated or validated custom input. Selecting a trace and resetting preserve its starting values. These operation counts and animation pace are separate from the recorded Python runtime measurements.",
     "limits": "Measurements cover random non-negative integer inputs from 50 to 1,000 in one recorded environment; they do not establish a universal ranking. IQR describes observed variation, not confidence. Rightmost-pivot recursive quicksort has adverse-input recursion limits. Radix supports non-negative integers and rejects booleans/fractions. The browser explorer ports only three approaches and limits inputs to 24 values; animation pace is unrelated to Python runtime.",
-    "technical": "Seven Python tests preserve algorithm correctness and benchmark-cache provenance. Five Node checks compare final traces with actual Python outputs, preserve every intermediate multiset, reconcile independently known counts and validate custom input syntax/bounds. Three browser journeys verify all row-to-trace totals, duplicate/custom input, retained-input resets, invalid-input recovery, playback and dense 24-value mobile layout. Cached traces make algorithm selection reuse the exact same input. Swaps count exchanges between different indices, including equal values; self placements are shown but not counted. Bar heights share a scale across each input and zero values remain visible. Python algorithm bytes and recorded benchmark data are unchanged.",
+    "technical": "Every frame copies original identities alongside values. Real index-changing exchanges swap both; self placements change neither. A pure helper validates the permutation and compares repeated-value subsequences with their original order. Labels are one-based, while toggling retains the step and input. Dense labelled charts have readable minimum-width bars and keyboard scrolling. Seven Python tests preserve algorithms/cache provenance; eight Node tests reconcile every frame identity/value, independent snapshots and known reversals. Five browser journeys cover exact identities, evidence, keyboard toggling/scrolling and mobile fit alongside existing playback/custom-input checks.",
     "run": "Install requirements.txt; run python benchmark_portfolio.py, python plot_portfolio.py and python -m unittest discover -p \"test_*.py\" -v. Use --refresh to request new measurements. For browser verification, build Python fixtures and docs, npm ci, npm run test:trace and npm run test:browser.",
     "extra": "",
     "gallery": [
       [
-        "custom-trace.png",
-        "The same custom values feed the selected trace, shared table and reset; small values use a readable common bar scale."
+        "equal-order-comparison.jpg",
+        "The same input across three traces, including observed equal-value order. Preserved once is not a proof of stability."
+      ],
+      [
+        "mobile-item-origins.jpg",
+        "Original-position markers and exact repeated-value order on mobile; dense labelled charts scroll internally."
       ],
       [
         "benchmark.png",
-        "Preserved measured Python medians and observed IQR for five algorithms; playback pace never changes these measurements."
-      ],
-      [
-        "comparison.png",
-        "The same original benchmark observations at 1,000 values, on a linear scale."
+        "Preserved Python measurements remain a separate experiment with unchanged algorithm and data hashes."
       ]
     ],
     "demo": "https://benjanning.github.io/Sorting-Algorithms-Project/",
     "demo_label": "Try sorting explorer",
     "demo_disclosure": "Interactive browser explanation of three sorting approaches. Playback is illustrative; measured Python benchmarks are presented separately.",
-    "challenge": "A comparison is only fair if every algorithm starts with the same values. The original controls regenerated input whenever the algorithm changed; deterministic examples hid that dependency. A shared current-input state and cached traces now keep custom values stable across selection, exploration and reset. Complete totals and in-progress counters are labelled separately, while the measured benchmark remains a separate experiment."
+    "challenge": "Sorted numbers cannot reveal whether equal items changed places. Original identities must follow every real exchange without changing comparisons, swap counts or historical frames. The evidence names the scope: preserving order on this input is not proof of general stability. Known selection-sort and rightmost-pivot quicksort counterexamples reveal reversals without altering algorithm behavior."
   },
   "assets": [
     {
@@ -65,33 +65,51 @@
     },
     {
       "name": "explorer.jpg",
-      "sha256": "f90bd294f620ddcbcbedbb969a92c5433397bdfdfc16af42aeb273c2bec729d1",
-      "bytes": 212590,
+      "sha256": "bc205ca6b2158cdf77f0f55d1a3742318187223664f2eca0e09c7818cbcd5f0f",
+      "bytes": 240964,
       "provenance": "Actual browser screenshot of instrumented JavaScript ports of three source sorting approaches, captured after trace parity and browser controls pass."
     },
     {
       "name": "mobile-explorer.jpg",
-      "sha256": "7d069025dead98d6f959eb06023f7d02a6111eb450180c94a3f1fd84c83d1519",
-      "bytes": 153928,
+      "sha256": "561dfed1c3964b60a4ad84c5205ea3a3c597b054ac5ad9f8b49bbb1f9284209f",
+      "bytes": 183703,
       "provenance": "Actual 390px browser screenshot with a dense 20-value case; no fabricated interface or runtime claim."
     },
     {
       "name": "operation-comparison.png",
-      "sha256": "8ca5d5a05c0c842ce0e8b7259a00130c0efd0726ef4c1e14a1885adf3ff9984f",
-      "bytes": 102108,
+      "sha256": "28e9093e240c6abcb0548d81a924d0b107fa4d02017eb7d966fef754aa6bcd4b",
+      "bytes": 128506,
       "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
     },
     {
       "name": "custom-trace.png",
-      "sha256": "2911e50ccaa632e08b273a2352db50a2f0bb77afaaae66585c4c45c723e1aa21",
-      "bytes": 84013,
+      "sha256": "16dae5466d99fce3c1f1c104ba1e030dc82f8cf9f688a36913aec026bb58a1a1",
+      "bytes": 102049,
       "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
     },
     {
       "name": "custom-mobile.jpg",
-      "sha256": "87ec86b5900d56a77eae7238c2c03d116114249250a3b57212931a164cc4d663",
-      "bytes": 174846,
+      "sha256": "f4d3a797cdb3c50c4e6c16cdb4f5b85d7b404fc2dd5aa3285013ccb460a3ff69",
+      "bytes": 205139,
       "provenance": "Genuine browser capture after checking shared-input comparison totals, trace selection/reset, custom input validation and dense 24-value mobile layout. Actual JavaScript trace counts; original Python runtime measurements are preserved separately."
+    },
+    {
+      "name": "item-origins.jpg",
+      "sha256": "6592d46561cc125632379bee9cd657bfce449f277e447f70d2883cd896af6f4a",
+      "bytes": 77908,
+      "provenance": "Actual browser capture after identity/value reconciliation, known equal-value reversals and desktop/mobile journeys. Original positions follow actual exchanges on one shared custom input; order claims are limited to that example. Dense 24-item mobile labels and keyboard scrolling are checked separately. Python code and recorded measurements remain unchanged."
+    },
+    {
+      "name": "mobile-item-origins.jpg",
+      "sha256": "5d626fc8732ab21eb43a60363abc3fd77558c71677ea4753637c6ea20df3247d",
+      "bytes": 65704,
+      "provenance": "Actual browser capture after identity/value reconciliation, known equal-value reversals and desktop/mobile journeys. Original positions follow actual exchanges on one shared custom input; order claims are limited to that example. Dense 24-item mobile labels and keyboard scrolling are checked separately. Python code and recorded measurements remain unchanged."
+    },
+    {
+      "name": "equal-order-comparison.jpg",
+      "sha256": "0a2952b8cb4e18f1013b1e71a6c20ebbcea76d268a1b1244a589dd38fede0c29",
+      "bytes": 103629,
+      "provenance": "Actual browser capture after identity/value reconciliation, known equal-value reversals and desktop/mobile journeys. Original positions follow actual exchanges on one shared custom input; order claims are limited to that example. Dense 24-item mobile labels and keyboard scrolling are checked separately. Python code and recorded measurements remain unchanged."
     }
   ]
 }
